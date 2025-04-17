@@ -36,9 +36,11 @@ def listen_for_activation():
         command = take_command()
         if "arise" in command:
             speak("Hey sir, how may I help you")
+            print("Hey sir, how may I help you")
             return True
         else:
             speak("Activation word not detected. Try again.")
+            print("Activation word not detected. Try again.")
 
 def get_news():
     try:
@@ -59,14 +61,14 @@ def get_news():
     except Exception as e:
         print("Error getting news:", e)
         speak("Sorry, I'm having trouble accessing the news.")
-
-
+        
 def process_commands():
     while True:
         command = take_command()
 
         if "exit" in command or "quit" in command:
             speak("Goodbye sir.")
+            print("Goodbye sir.")
             break
         elif "open youtube" in command:
             speak("Opening YouTube")
@@ -89,9 +91,11 @@ def process_commands():
         elif "time" in command:
             time_now = datetime.datetime.now().strftime("%I:%M %p")
             speak(f"The time is {time_now}")
+            print(f"The time is {time_now}")
         elif "date" in command:
             today = datetime.datetime.now().strftime("%A, %B %d, %Y")
             speak(f"Today is {today}")
+            print(f"Today is {today}")
         elif "what can you do" in command or "help" in command:
             speak("Here's what I can do:")
             speak("I can open websites like YouTube, Google, Instagram, Spotify, and more.")
@@ -99,24 +103,33 @@ def process_commands():
             speak("You can get news headlines.")
             speak("I can also search Wikipedia for you.")
             speak("Just say the command and I'll do it.")
-        elif "wikipedia" in command or "search wikipedia" in command:
-            speak("Searching Wikipedia...")
+        elif "wikipedia" in command or "search" in command or "who is" in command or "what is" in command:
+            speak("Let me look that up on Wikipedia...")
             try:
-                topic = command.replace("search wikipedia for", "").replace("wikipedia", "").strip()
+                topic = command.replace("search wikipedia for", "").replace("wikipedia", "").replace("search", "").strip()
                 summary = wikipedia.summary(topic, sentences=2)
-                speak(f"According to Wikipedia, {summary}")
+                response = f"According to Wikipedia, {summary}"
+                print(response)
+                speak(response)
             except wikipedia.exceptions.DisambiguationError as e:
                 speak("That topic is too broad. Please be more specific.")
-            except Exception as e:
+                print("Disambiguation Error:", e)
+            except wikipedia.exceptions.PageError:
                 speak("Sorry, I couldn't find anything on Wikipedia.")
+                print("Page not found on Wikipedia.")
+            except Exception as e:
+                speak("Something went wrong while searching.")
+                print("Error:", e)
         elif "news" in command or "headlines" in command:
             get_news()
         else:
             speak("Sorry, I didn't understand. Try again.")
 
 if __name__ == "__main__":
+    print("Initializing Jarvis......")
     speak("Initializing Jarvis")
     if listen_for_activation():
         process_commands()
+
 
 
