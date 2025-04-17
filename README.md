@@ -1,7 +1,3 @@
-Here’s a README template with emojis to make it more engaging:
-
----
-
 # Jarvis Voice Assistant 🗣️🤖
 
 Welcome to **Jarvis**, your personal voice assistant! This Python script lets you interact with your computer using voice commands. It can open websites, provide news, search Wikipedia, and tell you the current time and date. Let's dive into the features! 🚀
