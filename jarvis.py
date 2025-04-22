@@ -8,7 +8,7 @@ import json
 
 recognizer = sr.Recognizer()
 talk = pyttsx3.init()
-newsapi_key = "0b6730a659cd4548a4d7f0e152d3b7de"
+newsapi_key = "your_api_key "
 NEWS_URL = f"https://newsapi.org/v2/top-headlines?country=us&apiKey={newsapi_key}"
 
 def speak(text):
